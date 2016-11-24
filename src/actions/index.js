@@ -1,7 +1,14 @@
+import axios from 'axios';
 
-export const test = () => {
+export const GET_COLORS = 'GET_COLORS'
+
+
+export const getColors = () => {
+  
+  const request = axios.get('/getColors')
+
   return {
-    type:'test',
-    payload:'Hello world'
+    type:GET_COLORS,
+    payload:request
   }
 }

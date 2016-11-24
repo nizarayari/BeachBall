@@ -27,8 +27,8 @@ export default class App extends Component {
                   {top: 300 , right: 360, height:40 , width:40 },
                   {top: 250 , right: 400, height:40 , width:40 }
                 ]
-    let circleToRender = circlesAttribute.map((attr)=>{
-      return <Circle coord={attr}/>
+    let circleToRender = circlesAttribute.map((attr,i)=>{
+      return <Circle key={i} coord={attr}/>
     })
 
     return circleToRender;
