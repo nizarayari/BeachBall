@@ -1,14 +1,25 @@
 import axios from 'axios';
 
-export const GET_COLORS = 'GET_COLORS'
+export const getColors = (i) => {
+  const GET_COLORS_CIRCLE = 'GET_COLORS_CIRCLE'
+  const GET_SPINNER_CIRCLE = 'GET_SPINNER_CIRCLE'
+
+  return (dispatch) => {
+    dispatch({
+      type:`${GET_SPINNER_CIRCLE}${i}`,
+    })
+    axios.get('/getColors').then((resp)=>{
+      //To reset design in case of multiple click
+      dispatch({
+      type:`${GET_SPINNER_CIRCLE}${i}`,
+      })
 
 
-export const getColors = () => {
-  
-  const request = axios.get('/getColors')
+      dispatch({
+        type:`${GET_COLORS_CIRCLE}${i}`,
+        payload:resp.data
+      })
+    })
 
-  return {
-    type:GET_COLORS,
-    payload:request
   }
 }

@@ -1,61 +1,44 @@
-import React, {Component} from 'react';
-import { connect } from 'react-redux';
-import * as actions from '../actions'
-import Radium from 'radium';
-import axios from 'axios';
-import _ from 'lodash'
+import React, { Component, PropTypes } from 'react';
+import { connect }                     from 'react-redux';
+import Radium                          from 'radium';
 
-@connect(mapStateToProps, actions)
+@connect(mapStateToProps)
 @Radium
 export default class Circle extends Component {
-
-  constructor(){
-    super()
-    this.state={
-      receivedColors:false,
-      colors:[],
-      spinner:false
-    }
-
-    this.handleOnClick = this.handleOnClick.bind(this)
-
-  }
-
-  handleOnClick(){
-    this.setState({spinner:true, receivedColors:false})
-    console.log('1.spinner true pas de balls')
-    axios.get('/getColors').then((resp)=>{
-      const colors = resp.data.map((color)=>{
-        return color.toString()
-      })
-      this.setState({receivedColors:false},()=>{
-        this.setState({receivedColors:true,spinner:false, colors})})
-      console.log('2.spinner false and do balls')
-
-    })     
-  }
   
-  spinner(){
+  static propTypes = {
+    number: PropTypes.number.isRequired,
+    handleClick: PropTypes.func.isRequired,
+    coord:PropTypes.object.isRequired,
+    circle1:PropTypes.object.isRequired,
+    circle2:PropTypes.object.isRequired,
+    circle3:PropTypes.object.isRequired,
+    circle4:PropTypes.object.isRequired,
+    circle5:PropTypes.object.isRequired
+  }
+
+  renderSpinner(){
+    let circleNumber = `circle${this.props.number}`
     const spinnerStyle = {
       display:'table-cell', 
       verticalAlign:'middle', 
       textAlign:'center'
     }
-    const isColored = this.state.spinner
+    const isColored = this.props[circleNumber].spinner
     return isColored ? <span style={spinnerStyle} className="fa fa-spinner fa-spin"/> : ''
   }
 
   render(){
     let {top,right,height,width} = this.props.coord
+    let circleNumber = `circle${this.props.number}`
+    let [color1, color2, color3, color4, color5, color6, color7, color8 ] = this.props[circleNumber].colors
 
-    let [color1, color2, color3, color4, color5, color6, color7, color8 ] = this.state.colors
-
-    let BeachBallStyle = { 
+    let beachBallStyle = { 
       background:`linear-gradient(45deg, ${color1} 50%, ${color2} 50%),linear-gradient(135deg, ${color3} 50%, ${color4} 50%),linear-gradient(135deg, ${color5} 50%, ${color6} 50%),linear-gradient(225deg, ${color7} 50%, ${color8} 50%)`,
       backgroundSize:'50% 50%',
       backgroundRepeat: 'no-repeat',
       backgroundPosition: '0% 0%, 0% 100%, 100% 0%, 100% 100%',
-      borderStyle:'none'
+      borderStyle:'none',
     }
 
     const circleStyle = {
@@ -72,11 +55,11 @@ export default class Circle extends Component {
             top,
             right
     },
-    selected: this.state.receivedColors ? BeachBallStyle : {}
+    beachBall: this.props[circleNumber].receivedColors ? beachBallStyle : {}
   }
     return (
-      <div onClick={this.handleOnClick} style={[circleStyle.base,circleStyle.selected]}>
-        {this.spinner()}
+      <div onClick={this.props.handleClick} style={[circleStyle.base,circleStyle.beachBall]}>
+        {this.renderSpinner()}
       </div>
     ) 
   } 
@@ -84,6 +67,10 @@ export default class Circle extends Component {
 
 function mapStateToProps(state){
   return {
-    colors:state.colors
+    circle1:state.circle1,
+    circle2:state.circle2,
+    circle3:state.circle3,
+    circle4:state.circle4,
+    circle5:state.circle5
   }
 }
