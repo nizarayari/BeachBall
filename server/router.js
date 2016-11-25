@@ -9,7 +9,13 @@ module.exports = function (app){
       count:8
     })
 
-    res.status(200).send(colors)
+    var randomwait = Math.floor(Math.random()*1) + 5
+    console.log('waitime:',randomwait)
+
+    setTimeout(function(){
+      console.log('colors sent')
+      res.status(200).send(colors)
+    },1000 * randomwait)
   })
 
    app.get('*', function(req, res, next){

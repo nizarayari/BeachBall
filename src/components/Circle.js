@@ -1,7 +1,9 @@
 import React, {Component} from 'react';
 import { connect } from 'react-redux';
 import * as actions from '../actions'
-import Radium from 'radium'
+import Radium from 'radium';
+import axios from 'axios';
+import _ from 'lodash'
 
 @connect(mapStateToProps, actions)
 @Radium
@@ -10,27 +12,37 @@ export default class Circle extends Component {
   constructor(){
     super()
     this.state={
-      selected:false,
-      colors:[]
+      receivedColors:false,
+      colors:[],
+      spinner:false
     }
 
     this.handleOnClick = this.handleOnClick.bind(this)
 
   }
 
-  componentDidMount(){
-    this.props.getColors()
-  }
-
   handleOnClick(){
-    this.props.getColors()
-    this.setState({colors: this.props.colors})
-    const _selected = !this.state.selected
-    this.setState({selected: _selected})
+    this.setState({spinner:true, receivedColors:false})
+    console.log('1.spinner true pas de balls')
+    axios.get('/getColors').then((resp)=>{
+      const colors = resp.data.map((color)=>{
+        return color.toString()
+      })
+      this.setState({receivedColors:false},()=>{
+        this.setState({receivedColors:true,spinner:false, colors})})
+      console.log('2.spinner false and do balls')
+
+    })     
   }
   
   spinner(){
-    return (<span style={{display:'table-cell', verticalAlign:'middle', textAlign:'center',}}className="fa fa-spinner fa-spin"/>)
+    const spinnerStyle = {
+      display:'table-cell', 
+      verticalAlign:'middle', 
+      textAlign:'center'
+    }
+    const isColored = this.state.spinner
+    return isColored ? <span style={spinnerStyle} className="fa fa-spinner fa-spin"/> : ''
   }
 
   render(){
@@ -54,12 +66,13 @@ export default class Circle extends Component {
             borderStyle:'solid',
             borderWidth:'2px',
             display:'table',
+            cursor:'pointer',
             width,
             height,
             top,
             right
     },
-    selected: this.state.selected ? BeachBallStyle : {}
+    selected: this.state.receivedColors ? BeachBallStyle : {}
   }
     return (
       <div onClick={this.handleOnClick} style={[circleStyle.base,circleStyle.selected]}>
