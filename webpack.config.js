@@ -15,18 +15,9 @@ module.exports = {
         presets: ['react', 'es2015','stage-1', 'stage-2'],
         plugins: ["transform-decorators-legacy"]
       }
-    },
-    {
-      test: /\.css$/,
-      loaders:["style", "css"]
-    }
-  ]
+    }]
   },
   resolve: {
     extensions: ['', '.js', '.jsx']
-  },
-  devServer: {
-    historyApiFallback: true,
-    contentBase: './'
   }
 };

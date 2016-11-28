@@ -1,5 +1,5 @@
-import {GET_COLORS_CIRCLE3}  from '../actions/types'
-import {GET_SPINNER_CIRCLE3} from '../actions/types'
+import {GET_COLORS_CIRCLE3}  from '../actions/types';
+import {GET_SPINNER_CIRCLE3} from '../actions/types';
 
 const INITIAL_STATE = {
   colors:[],
@@ -14,9 +14,7 @@ export default function(state=INITIAL_STATE, action){
       let colors = action.payload.map((color)=>{
         return color.toString()
       })
-
       return {...state,colors, receivedColors:true,spinner:false}
-
     case GET_SPINNER_CIRCLE3:
       return {
         ...state,spinner:true,receivedColors:false
@@ -24,4 +22,5 @@ export default function(state=INITIAL_STATE, action){
     default:
       return state
   }
+  
 }
