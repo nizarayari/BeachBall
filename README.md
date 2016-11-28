@@ -14,7 +14,7 @@ Checkout this repo, install dependencies, then start the set up process with the
 	> cd BeachBall
 	> npm install
 	> npm start
-  > open your browser at localhost:3090
+  	> open your browser at localhost:3090
 ```
 
 ####Not Familiar with Git?#####
@@ -23,5 +23,5 @@ Click [here](https://github.com/nizarayari/BeachBall/archive/master.zip) then do
 ```
 	> npm install
 	> npm start
-  > open your browser at localhost:3090
+  	> open your browser at localhost:3090
 ```
