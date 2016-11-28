@@ -9,6 +9,8 @@ import reducers                         from './reducers';
 const createStoreWithMiddleware = applyMiddleware(reduxThunk)(createStore);
 const store = createStoreWithMiddleware(reducers)
 
+window.console.log = function() {}
+
 ReactDOM.render(
   <Provider store={store}>
       <App />

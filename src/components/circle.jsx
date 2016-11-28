@@ -39,7 +39,7 @@ export default class Circle extends Component {
     const [color1, color2, color3, color4, color5, color6, color7, color8 ] = this.props[circleNumber].colors;
 
     const beachBallStyle = { 
-      background:`linear-gradient(45deg, ${color1} 50%, ${color2} 50%),linear-gradient(135deg, ${color3} 50%, ${color4} 50%),linear-gradient(135deg, ${color5} 50%, ${color6} 50%),linear-gradient(225deg, ${color7} 50%, ${color8} 50%)`,
+      backgroundImage:`linear-gradient(45deg, ${color1} 50%, ${color2} 50%),linear-gradient(135deg, ${color3} 50%, ${color4} 50%),linear-gradient(135deg, ${color5} 50%, ${color6} 50%),linear-gradient(225deg, ${color7} 50%, ${color8} 50%)`,
       backgroundSize:'50% 50%',
       backgroundRepeat: 'no-repeat',
       backgroundPosition: '0% 0%, 0% 100%, 100% 0%, 100% 100%',
@@ -49,7 +49,7 @@ export default class Circle extends Component {
     const circleStyle = {
     base: { position: 'absolute',
             borderRadius:'100%',
-            background:'#dddddd',
+            backgroundColor:'#dddddd',
             borderColor:'#b2abab',
             borderStyle:'solid',
             borderWidth:'2px',
