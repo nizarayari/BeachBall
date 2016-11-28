@@ -8,16 +8,23 @@ export const getColors = (i) => {
   return (dispatch) => {
     dispatch({
       type:`${GET_SPINNER_CIRCLE}${i}`,
+      payload : true
     })
     axios.get('/getColors').then((resp)=>{
       //To reset design in case of multiple click
       dispatch({
       type:`${GET_SPINNER_CIRCLE}${i}`,
+      payload : true
       })
       dispatch({
         type:`${GET_COLORS_CIRCLE}${i}`,
         payload:resp.data
       })
+    }).catch((error) => {
+      dispatch({
+      type:`${GET_SPINNER_CIRCLE}${i}`,
+      payload: 'error'
+    })
     })
   }
 }

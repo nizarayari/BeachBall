@@ -16,7 +16,9 @@ export default class Spinner extends Component {
       textAlign:'center'
     };
     const isColored = this.props[circleNumber].spinner;
-    if (isColored){
+    if(isColored === 'error'){
+      return (<div> Network error, please try again...</div>)
+    } else if (isColored){
       return (<span style={spinnerStyle} className="fa fa-spinner fa-spin"/>)
     } else {
       return null

@@ -17,7 +17,7 @@ export default function(state=INITIAL_STATE, action){
       return {...state,colors, receivedColors:true,spinner:false}
     case GET_SPINNER_CIRCLE2:
       return {
-        ...state,spinner:true,receivedColors:false
+        ...state,spinner:action.payload,receivedColors:false
       }
     default:
       return state
